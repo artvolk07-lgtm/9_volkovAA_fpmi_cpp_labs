@@ -1,4 +1,10 @@
-﻿#include <iostream>
+﻿/* if (m || std::cin.fail()) {
+       std::cout << std::endl;
+       std::cout << "Nu ya sh chislo prosil";
+       std::cout << std::endl;
+       return 1;
+   } */
+#include <iostream>
 
 int main() {
     int n;

@@ -7,8 +7,8 @@ int main()
 	std::cin >> k;
 	std::cout << std::endl;
 
-	if (k < 0) {
-		std::cout << "Poloshitelnoe nado durak -_-"<< std::endl;
+	if (k < 0 || std::cin.fail()) {
+		std::cout << "Poloshitelnoe CHISLO nado durak -_-"<< std::endl;
 		return 1;
 	}
 	long result = 1;

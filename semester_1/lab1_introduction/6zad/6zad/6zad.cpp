@@ -8,8 +8,8 @@ int main()
     std::cin >> n ;
     std::cout << std::endl;
 
-    if (n < 0) {
-        std::cout << "opiat ti tupik? Kol vo POLOSHITELNOE";
+    if (n < 0  || std::cin.fail()) {
+        std::cout << "opiat ti tupik? Kol vo POLOSHITELNOE CHISLO";
         std::cout << std::endl;
         return 1;
     }

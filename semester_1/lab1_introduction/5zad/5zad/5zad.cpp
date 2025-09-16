@@ -6,13 +6,21 @@ int main()
 
     std::cout << "Vvedite n: ";
     std::cin >> n;
+    
     std::cout << "Vvedite m: ";
     std::cin >> m;
-
+    
     n = std::abs(n);
     m = std::abs(m);
 
     std::cout << "obsh del: ";
+
+   /* if (m || std::cin.fail()) {
+        std::cout << std::endl;
+        std::cout << "Nu ya sh chislo prosil";
+        std::cout << std::endl;
+        return 1;
+    } */
 
     int min = (n < m) ? n : m;
 
