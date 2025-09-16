@@ -1,23 +1,38 @@
 ﻿#include <iostream>
-using namespace std;
 
 int main() {
     int n;
-    cin >> n;
+    std::cout << "ya naidu summu chet i proisv nech na otreske: "<< std::endl;
+    std::cin >> n;
 
-    long long sum_even = 0;
-    long long product_odd = 1;
+    long sum_even = 0;
+    long product_odd = 1;
 
-    for (int i = 1; i <= n; i++) {
-        if (i % 2 == 0) {
-            sum_even += i;
+    if (n > 0) {
+        
+        for (int i = 1; i <= n; i++) {
+            if (i % 2 == 0) {
+                sum_even += i;
+            }
+            else {
+                product_odd *= i;
+            }
         }
-        else {
-            product_odd *= i;
+    }
+    else {
+        for (int i = n; i <= 1; i++) {
+            if (i % 2 == 0) {
+                sum_even += i;
+            }
+            else {
+                product_odd *= i;
+            }
         }
     }
 
-    cout << sum_even << " " << product_odd << endl;
+
+    std::cout << "summa: " << sum_even << std::endl;
+    std::cout << "proisv:  " << product_odd << std::endl;
 
     return 0;
 }
