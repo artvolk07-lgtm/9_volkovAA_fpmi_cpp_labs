@@ -3,11 +3,12 @@
 int main()
 {
 	int k;
-	std::cout << "Vvedi cрislo  ";
+	std::cout << "Vvedi cislo  ";
 	std::cin >> k;
+	std::cout << std::endl;
 
 	if (k < 0) {
-		std::cout << "Poloshitelnoe nado durak"<< std::endl;
+		std::cout << "Poloshitelnoe nado durak -_-"<< std::endl;
 		return 1;
 	}
 	long result = 1;
