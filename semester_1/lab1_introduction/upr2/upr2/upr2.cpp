@@ -5,11 +5,27 @@
        return 1;
    } */
 #include <iostream>
+#include <limits>
 
 int main() {
     int n;
-    std::cout << "ya naidu summu chet i proisv nech na otreske: "<< std::endl;
-    std::cin >> n;
+    bool validInput = false;
+    while (!validInput) {
+        std::cout << "ya naidu summu chet i proisv nech na otreske: ";
+       
+        std::cin >> n;
+        std::cout << std::endl;
+        
+        if (std::cin.fail()){
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            std::cout << "Poprobui eshe ras:  "<< std::endl;
+            std::cout << std::endl;
+        }
+        else {
+            validInput = true;
+        }
+    }
 
     long sum_even = 0;
     long product_odd = 1;
