@@ -13,7 +13,7 @@ int main()
 		if (std::cin.fail() || n <= 0) {
 			std::cin.clear();
 			std::cin.ignore(std::numeric_limits < std::streamsize > ::max(), '\n');
-			std::cout << "tupen vvedi NATURALNOE: " << std::endl;
+			std::cout << "tupen vvedi NATURALNOE or not so big " << std::endl;
 		}
 		else {
 			N = true;
