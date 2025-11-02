@@ -74,6 +74,7 @@ void sortByFrequency(double arr[], int n) {
                     freq2++;
                 }
             }
+            // if (frq(arr[j] < frq(arr[j + 1])
             if (freq1 < freq2 || (freq1 == freq2 && arr[j] > arr[j + 1])) {
                 std::swap(arr[j], arr[j + 1]);
             }

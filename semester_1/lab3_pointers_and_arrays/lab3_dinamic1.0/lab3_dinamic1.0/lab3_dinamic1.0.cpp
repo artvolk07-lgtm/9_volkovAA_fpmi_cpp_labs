@@ -2,170 +2,140 @@
 #include <random>
 #include <cmath>
 
-const int MAXSIZE = 100;
-
-int getArraySize() {
-    int n = 0;
-    std::cout << "Enter the number array elements (not more than 100):\n";
-
-    if (!(std::cin >> n)) {
-        std::cout << "natural numbers only";
-        std::exit(1);
-    }
-
-    if (n > MAXSIZE) {
-        std::cout << " size limit exceeded.please enter a number less than 100";
-        std::exit(1);
-    }
-
-    return n;
-}
-
-void manualInput(int* arr, int n) {
-    std::cout << "Enter " << n << " array elements:" << std::endl;
+void fillManual(int arr[], int n) {
+    std::cout << "Enter " << n << " array elements:\n";
     for (int i = 0; i < n; ++i) {
         std::cin >> arr[i];
         if (std::cin.fail()) {
             std::cout << "Error: Invalid input. Please enter integers only." << std::endl;
-            throw std::runtime_error("Invalid input");
+            delete[] arr;
+
         }
     }
 }
 
-void randomInput(int* arr, int n) {
+void fillRandom(int arr[], int n) {
     int a, b;
     std::cout << "Enter interval boundaries [a, b]: ";
     std::cin >> a >> b;
 
-    if (a > b) {
-        std::cout << "Error: a must be less than or equal to b." << std::endl;
-        throw std::runtime_error("Invalid interval");
-    }
-
     std::random_device rd;
     std::mt19937 gen(rd());
-    std::uniform_int_distribution<int> dist(a, b);
+    std::uniform_int_distribution<> dist(a, b);
 
-    for (int i = 0; i < n; ++i) {
+    for (int i = 0; i < n; i++) {
         arr[i] = dist(gen);
     }
 }
 
-void fillArray(int* arr, int n) {
-    int choice;
-    std::cout << "Choose array filling method:" << std::endl;
-    std::cout << "1 - Manual input" << std::endl;
-    std::cout << "2 - Random numbers" << std::endl;
-    std::cin >> choice;
+void printArray(int arr[], int n) {
 
-    if (choice == 1) {
-        manualInput(arr, n);
+    for (int i = 0; i < n; i++) {
+        std::cout << arr[i];
+        if (i < n - 1) std::cout << ", ";
     }
-    else if (choice == 2) {
-        randomInput(arr, n);
-    }
-    else {
-        std::cout << "Invalid choice." << std::endl;
-        throw std::runtime_error("Invalid choice");
-    }
+    ;
 }
 
-void printArray(const int* arr, int n, const std::string& message = "Array: ") {
-    std::cout << message;
-    for (int i = 0; i < n; ++i) {
-        std::cout << arr[i] << " ";
-    }
-    std::cout << std::endl;
-}
-
-int calculateOddIndexSum(const int* arr, int n) {
-    int oddSum = 0;
+int sumOddIndices(int arr[], int n) {
+    int sum = 0;
     for (int i = 1; i < n; i += 2) {
-        oddSum += arr[i];
+        sum += arr[i];
     }
-    return oddSum;
+    return sum;
 }
 
-int findFirstPositiveIndex(const int* arr, int n) {
-    for (int i = 0; i < n; ++i) {
+int productBetweenPositives(int arr[], int n) {
+    int firstPos = -1, lastPos = -1;
+
+    for (int i = 0; i < n; i++) {
         if (arr[i] > 0) {
-            return i;
+            firstPos = i;
+            break;
         }
     }
-    return -1;
-}
 
-int findLastPositiveIndex(const int* arr, int n) {
-    for (int i = n - 1; i >= 0; --i) {
+    for (int i = n - 1; i >= 0; i--) {
         if (arr[i] > 0) {
-            return i;
+            lastPos = i;
+            break;
         }
     }
-    return -1;
-}
 
-int calculateProductBetweenPositives(const int* arr, int n) {
-    int firstPos = findFirstPositiveIndex(arr, n);
-    int lastPos = findLastPositiveIndex(arr, n);
-
-    int product = 0;
-    if (firstPos != -1 && lastPos != -1 && firstPos < lastPos - 1) {
-        product = 1;
-        for (int i = firstPos + 1; i < lastPos; ++i) {
-            product *= arr[i];
-        }
+    if (firstPos == -1 || lastPos == -1 || firstPos >= lastPos) {
+        return 0;
     }
+
+    int product = 1;
+    for (int i = firstPos + 1; i < lastPos; i++) {
+        product *= arr[i];
+    }
+
     return product;
 }
 
-void compressArray(int* arr, int n, int N) {
+void compressArray(int arr[], int n, int N) {
     int writeIndex = 0;
-    for (int i = 0; i < n; ++i) {
+
+    for (int i = 0; i < n; i++) {
         if (std::abs(arr[i]) <= N) {
             arr[writeIndex] = arr[i];
             writeIndex++;
         }
     }
 
-    for (int i = writeIndex; i < n; ++i) {
+    for (int i = writeIndex; i < n; i++) {
         arr[i] = 0;
     }
 }
 
 int main() {
-    try {
-        int n = getArraySize();
+    int n, choice, N;      
 
-        int* arr = new int[n];
+    std::cout << "Enter array size: ";
+    std::cin >> n;
 
-        fillArray(arr, n);
-
-        printArray(arr, n, "Original array: ");
-
-       
-        int oddSum = calculateOddIndexSum(arr, n);
-        std::cout << "1. Sum of elements with odd indices: " << oddSum << std::endl;
-
-      
-        int product = calculateProductBetweenPositives(arr, n);
-        std::cout << "2. Product between first and last positive elements: " << product << std::endl;
-
-      
-        int N;
-        std::cout << "Enter number N for compression: ";
-        std::cin >> N;
-
-        compressArray(arr, n, N);
-        printArray(arr, n, "3. Compressed array: ");
-
-     
-        delete[] arr;
-
-    }
-    catch (const std::exception& e) {
-        std::cout << "Error: " << e.what() << std::endl;
+    if (n <= 0) {
+        std::cout << "Array size must be positive!\n";
         return 1;
     }
 
+    int* arr = new int[n];
+
+    std::cout << "\nChoose array filling method:\n";
+    std::cout << "1 - Manual input\n";
+    std::cout << "2 - Random numbers\n";
+    std::cin >> choice;
+
+    switch (choice) {
+    case 1:
+        fillManual(arr, n);
+        break;
+    case 2:
+        fillRandom(arr, n);
+        break;
+    default:
+        std::cout << "Invalid choice!\n";
+        delete[] arr;
+        return 1;
+    }
+
+    std::cout << "\nOrig: ";
+    printArray(arr, n);
+
+    int sumOdd = sumOddIndices(arr, n);
+    std::cout << "\n1. Sum of elements with odd indices: " << sumOdd << std::endl;
+
+    int product = productBetweenPositives(arr, n);
+    std::cout << "2. Product between first and last positive elements: " << product << std::endl;
+
+    std::cout << "\nEnter number N for array compression: ";
+    std::cin >> N;
+
+    compressArray(arr, n, N);
+    std::cout << "Compressed array: ";
+    printArray(arr, n);
+
+    delete[] arr;
     return 0;
 }
