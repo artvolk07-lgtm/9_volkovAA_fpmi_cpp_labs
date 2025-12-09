@@ -1,5 +1,4 @@
 ﻿#include <iostream>
-#include <random>
 #include <iomanip>
 
 void fillSM(int** matrix, int n) {
@@ -68,7 +67,7 @@ int main() {
         std::cin >> n;
 
         if (n <= 0) {
-            std::cout << "Error: Matrix size must be positive." << std::endl;
+            std::cout << "Error: Matrix size must be positive number and integer." << std::endl;
             return 1;
         }
 
@@ -104,7 +103,7 @@ int main() {
         std::cout << "Error: " << e.what() << std::endl;
         return 1;
     }
-
+        
     return 0;
 }
 
