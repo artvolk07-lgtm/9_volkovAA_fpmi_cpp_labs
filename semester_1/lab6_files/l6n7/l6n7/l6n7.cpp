@@ -52,6 +52,9 @@ int findMaxSameCharLength(const std::string& str) {
 int main() {
     std::setlocale(LC_ALL, ".1251");
     std::ifstream inputFile("input.txt");
+       
+    //std::cout << char(std::tolower('Ё'));
+
 
     if (!inputFile) {
         std::cout << "Не удалось открыть файл input.txt" << std::endl;
@@ -91,7 +94,7 @@ int main() {
         << globalMaxLen << std::endl;
     std::cout << "Найдено строк: " << linesWithMaxLen.size() << std::endl;
     std::cout << "==========================================" << std::endl;
-
+    
     int limit = std::min(10, static_cast<int>(linesWithMaxLen.size()));
     for (int i = 0; i < limit; ++i) {
         std::cout << "Строка " << (i + 1) << " (длина повтора: "
