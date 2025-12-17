@@ -7,9 +7,16 @@
 
 bool isAllDigits(const std::string& word) {
     if (word.empty()) return false;
-    for (char c : word) {
-        if (!std::isdigit(c)) return false;
+
+    size_t start = 0;
+    if (word[0] == '-') {
+        start = 1;
     }
+
+    for (start; start < word.size(); ++start) {
+        if (!std::isdigit(word[start])) return false;
+    }
+    
     return true;
 }
 
@@ -31,17 +38,17 @@ std::string findAndMovePreLastMaxNumber(std::string input) {
         return input;
     }
 
-    std::string maxNumber = numberWords[0];
+    int maxNumber = std::stoi(numberWords[0]);
     for (size_t i = 1; i < numberWords.size(); i++) {
-        if (numberWords[i].length() > maxNumber.length() ||
-            (numberWords[i].length() == maxNumber.length() && numberWords[i] > maxNumber)) {
-            maxNumber = numberWords[i];
+        int num = std::stoi(numberWords[i]);
+        if (num > maxNumber) {
+            maxNumber = num;
         }
     }
 
     std::vector<int> maxPositions;
     for (int i = 0; i < words.size(); i++) {
-        if (isAllDigits(words[i]) && words[i] == maxNumber) {
+        if (isAllDigits(words[i]) && words[i] == std::to_string(maxNumber)) {
             maxPositions.push_back(i);
         }
     }
