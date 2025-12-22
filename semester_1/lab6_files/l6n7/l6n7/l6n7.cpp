@@ -5,6 +5,10 @@
 #include <algorithm>
 #include <cctype>
 
+bool IsEmpty(std::ifstream& file) {
+    return file.peek() == std::ifstream::traits_type::eof();
+}
+
 bool isRussianChar(unsigned char c) {
     if ((c >= 192 && c <= 223) || (c >= 224 && c <= 255) || c == 168 || c == 184) {
         return true;
@@ -61,14 +65,16 @@ int main() {
         return 1;
     }
 
+    if (IsEmpty(inputFile)) {
+        std::cout << "Ваш файл пустой!" << std::endl;
+        return 1;
+    }
+
     std::vector<std::pair<std::string, int>> linesWithMaxLen;
     int globalMaxLen = 0;
     std::string line;
 
-    if (!std::getline(inputFile, line)) {
-        std::cout << "Ваш файл пустой!" << std::endl;
-        return 0;
-    }
+    
 
     while (std::getline(inputFile, line)) {
         int maxLen = findMaxSameCharLength(line);
